@@ -4,6 +4,8 @@ HotKeySet("{F9}", "parar")
 
 $caminho = "D:\LoginPw"
 
+$titulo = ""
+
 $iconeEscolher = "img\Escolher.png"
 $iconeConfirmar = "img\Confirmar.png"
 $iconeConfirmarPlanta = "img\confirmarPlanta.png"
@@ -100,6 +102,11 @@ Func login($conta)
 		EndIf
 	#ce
 	WEnd
+
+	$titulo = $conta
+	WinSetTitle("Perfect World", "", $titulo)
+	Sleep(1000)
+
 EndFunc
 
 
