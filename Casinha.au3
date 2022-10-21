@@ -21,7 +21,9 @@ $iconeBotaoCompletar = "img\botaoCompletar.png"
 $iconeColetarRubis = "img\coletarRubis.png"
 $iconeLateral = "img\lateral.png"
 $iconeAbiu = "img\abiu.png"
+$iconeGinseng = "img/ginseng.png"
 $iconeCervo = "img\cervo.png"
+$iconePorco = "img/porco.png"
 $iconeJardinagem = "img\jardinagem.png"
 $iconeQ = "img\q.png"
 
@@ -80,7 +82,7 @@ Func login($conta)
 	While $repetir = True
 		Sleep(10000)
 		WinActivate("Perfect World")
-		WinMove("Perfect World", "", 0, 0, 1192, 703)
+		WinMove("Perfect World", "", 0, 0, 1192, 703, 5)
 
 		$servidor = PixelSearch($left, $top, $right, $bottom, $corServidor)
 
@@ -184,11 +186,11 @@ Func coordenadas()
 		Sleep(1000)
 		MouseClick("LEFT", 226, $yPlantacao, 2, 15)
 		Sleep(2000)
-		plantacao()
+		plantacao("ginseng")
 		Sleep(1000)
 		MouseClick("LEFT", 226, $yRancho, 2, 15)
 		Sleep(2000)
-		rancho()
+		rancho("porco")
 	Else
 
 	EndIf
@@ -370,7 +372,7 @@ Func aceitar()
 
 EndFunc
 
-Func plantacao()
+Func plantacao($planta)
 	$x = 0
 	$y = 0
 
@@ -385,21 +387,44 @@ Func plantacao()
 			$yLateral = $y + 375
 			MouseClickDrag("LEFT", $x, $y, $x, $yLateral, 15)
 			Sleep(1000)
-			$abiu = _ImageSearch($iconeAbiu, 1, $x, $y, 20, 0)
-			If $abiu = 1 Then
-				MouseClick("LEFT", $x, $y, 1, 15)
-				Sleep(500)
-				$confirmarPlanta = _ImageSearch($iconeConfirmarPlanta, 1, $x, $y, 50, 0)
-				If $confirmarPlanta = 1 Then
+			If $planta = "abiu" Then
+				$abiu = _ImageSearch($iconeAbiu, 1, $x, $y, 20, 0)
+				If $abiu = 1 Then
 					MouseClick("LEFT", $x, $y, 1, 15)
-					Sleep(1000)
-					Send("{ESC}")
+					Sleep(500)
+					$confirmarPlanta = _ImageSearch($iconeConfirmarPlanta, 1, $x, $y, 50, 0)
+					If $confirmarPlanta = 1 Then
+						MouseClick("LEFT", $x, $y, 1, 15)
+						Sleep(1000)
+						Send("{ESC}")
+					Else
+						ToolTip("Falha ao plantar abiu")
+						Sleep(1000)
+						Exit
+					EndIf
 				Else
-					ToolTip("Falha ao plantar")
-					Sleep(1000)
+					MsgBox(0, "Planta não encontrada", "Abiu não encontrado")
 					Exit
 				EndIf
 			Else
+				$ginseng = _ImageSearch($iconeGinseng, 1, $x, $y, 20, 0)
+				If $ginseng = 1 Then
+					MouseClick("LEFT", $x, $y, 1, 15)
+					Sleep(500)
+					$confirmarPlanta = _ImageSearch($iconeConfirmarPlanta, 1, $x, $y, 50, 0)
+					If $confirmarPlanta = 1 Then
+						MouseClick("LEFT", $x, $y, 1, 15)
+						Sleep(1000)
+						Send("{ESC}")
+					Else
+						ToolTip("Falha ao plantar ginseng")
+						Sleep(1000)
+						Exit
+					EndIf
+				Else
+					MsgBox(0, "Planta não encontrada", "Ginseng não encontrado")
+					Exit
+				EndIf
 
 			EndIf
 		Else
@@ -414,7 +439,7 @@ Func plantacao()
 	EndIf
 EndFunc
 
-Func rancho()
+Func rancho($animal)
 	$x = 0
 	$y = 0
 
@@ -429,21 +454,42 @@ Func rancho()
 			$yLateral = $y + 375
 			MouseClickDrag("LEFT", $x, $y, $x, $yLateral, 15)
 			Sleep(1000)
-			$cervo = _ImageSearch($iconeCervo, 1, $x, $y, 20, 0)
-			If $cervo = 1 Then
-				MouseClick("LEFT", $x, $y, 1, 15)
-				Sleep(500)
-				$confirmarPlanta = _ImageSearch($iconeConfirmarPlanta, 1, $x, $y, 50, 0)
-				If $confirmarPlanta = 1 Then
+			if $animal = "cervo" Then
+				$cervo = _ImageSearch($iconeCervo, 1, $x, $y, 20, 0)
+				If $cervo = 1 Then
 					MouseClick("LEFT", $x, $y, 1, 15)
-					Sleep(1000)
-					Send("{ESC}")
+					Sleep(500)
+					$confirmarPlanta = _ImageSearch($iconeConfirmarPlanta, 1, $x, $y, 50, 0)
+					If $confirmarPlanta = 1 Then
+						MouseClick("LEFT", $x, $y, 1, 15)
+						Sleep(1000)
+						Send("{ESC}")
+					Else
+						ToolTip("Falha ao plantar cervo")
+						Sleep(1000)
+						Exit
+					EndIf
 				Else
-					ToolTip("Falha ao plantar")
-					Sleep(1000)
-					Exit
+					MsgBox(0, "Rancho", "Falha no cervo")
 				EndIf
 			Else
+				$porco = _ImageSearch($iconePorco, 1, $x, $y, 20, 0)
+				If $porco = 1 Then
+					MouseClick("LEFT", $x, $y, 1, 15)
+					Sleep(500)
+					$confirmarPlanta = _ImageSearch($iconeConfirmarPlanta, 1, $x, $y, 50, 0)
+					If $confirmarPlanta = 1 Then
+						MouseClick("LEFT", $x, $y, 1, 15)
+						Sleep(1000)
+						Send("{ESC}")
+					Else
+						ToolTip("Falha ao plantar porco")
+						Sleep(1000)
+						Exit
+					EndIf
+				Else
+					MsgBox(0, "Rancho", "Falha no porco")
+				EndIf
 
 			EndIf
 		Else
