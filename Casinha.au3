@@ -35,10 +35,15 @@ $top = 40
 $right = 1175
 $bottom = 686
 
+$plantacao = "abiu"
+$rancho = "cervo"
+
 login("WR")
 Sleep(10000)
 casinha()
 missao()
+Sleep(1000)
+limpaCasa()
 Sleep(2000)
 coordenadas()
 
@@ -48,6 +53,8 @@ login("PL")
 Sleep(10000)
 casinha()
 missao()
+Sleep(1000)
+limpaCasa()
 Sleep(2000)
 coordenadas()
 
@@ -57,15 +64,17 @@ login("RT")
 Sleep(10000)
 casinha()
 missao()
+Sleep(1000)
+limpaCasa()
 Sleep(2000)
 coordenadas()
-
-Sleep(2000)
 
 login("MC Gabriel")
 Sleep(10000)
 casinha()
 missao()
+Sleep(1000)
+limpaCasa()
 Sleep(2000)
 coordenadas()
 
@@ -130,7 +139,7 @@ Func casinha()
 			$repetir = False
 			While $loop = True
 				Sleep(10000)
-				$q = _ImageSearch($iconeQ, 1, $x, $y, 50, 0)
+				$q = _ImageSearch($iconeQ, 1, $x, $y, 80, 0)
 				If $q = 1 Then
 					Send("{S DOWN}")
 					Sleep(500)
@@ -152,9 +161,18 @@ Func casinha()
 			$repetir = True
 		EndIf
 	WEnd
+
+
+
+EndFunc
+
+Func limpaCasa()
+	$x = 0
+	$y = 0
+
 	;Limpar a casa com rubis
 	MouseClick("LEFT", 182, 76, 1, 15)
-	Sleep(1000)
+	Sleep(2000)
 	$confirmar = _ImageSearch($iconeConfirmar, 1, $x, $y, 50, 0)
 	If $confirmar = 1 Then
 		MouseClick("LEFT", $x, $y, 1, 15)
@@ -166,13 +184,12 @@ Func casinha()
 		Send("{ESC}")
 	EndIf
 
-
 EndFunc
 
 Func coordenadas()
 	$x = 0
 	$y = 0
-	$yMaterial = 157
+	$yMaterial = 140
 	$yPlantacao = 100
 	$yRancho = $yPlantacao + 18
 
@@ -186,11 +203,11 @@ Func coordenadas()
 		Sleep(1000)
 		MouseClick("LEFT", 226, $yPlantacao, 2, 15)
 		Sleep(2000)
-		plantacao("ginseng")
+		plantacao($plantacao)
 		Sleep(1000)
 		MouseClick("LEFT", 226, $yRancho, 2, 15)
 		Sleep(2000)
-		rancho("porco")
+		rancho($rancho)
 	Else
 
 	EndIf
@@ -302,7 +319,7 @@ Func missao()
 		Sleep(2000)
 		Exit
 	EndIf
-
+For $i = 0 To 4 Step 1
 	Sleep(1000)
 	;Escolher missão
 
@@ -311,12 +328,13 @@ Func missao()
 	If IsArray($missao) Then
 		MouseClick("LEFT", $missao[0], $missao[1], 1, 15)
 		aceitar()
+		$i = 5
 	Else
 		ToolTip("Missão não encontrada")
 		Sleep(1000)
-		Exit
-	EndIf
 
+	EndIf
+Next
 	Sleep(1000)
 	;Completa missão de mobília
 	$completar = _ImageSearch($iconeCompletar, 1, $x, $y, 50, 0)
